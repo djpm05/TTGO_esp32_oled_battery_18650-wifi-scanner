@@ -7,6 +7,7 @@
 #include <SSD1306.h>
 #include <Wire.h>
 #include "OLEDDisplayUi.h"
+#include <images.h>
 
 #define OLED_ADDR 0x3C
 #define OLED_SDA  5
@@ -26,8 +27,8 @@ void setup()
     display.init();
     display.setTextAlignment(TEXT_ALIGN_LEFT);
     display.setFont(ArialMT_Plain_16);
-    display.drawString(0, 0, "WiFi Scanner");
-    display.drawString(0, 16, "by David King");
+    display.drawXbm(34, 0, WiFi_Logo_width, WiFi_Logo_height, WiFi_Logo_bits);
+    display.drawString(34, 40, "Scanner");
 }
 
 void loop() {
@@ -59,7 +60,8 @@ void loop() {
 
             // Display on OLED
             // display.drawString(xMove, yMove, msg);
-            display.drawString(0, iadj * 10, WiFi.SSID(i));
+            display.drawStringMaxWidth(0, iadj * 10, 100, WiFi.SSID(i));
+            display.drawString(110, iadj * 10, (String)WiFi.RSSI(i));
             //display.drawString(0, iadj * 10, " (");
             //Serial.print(WiFi.RSSI(i));
             //Serial.print(")");
